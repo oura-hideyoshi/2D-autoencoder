@@ -1,0 +1,4 @@
+name: '[env_name]'
+channels:
+  - defaults
+prefix: C:\Users\OURA\anaconda3\envs\[env_name]
