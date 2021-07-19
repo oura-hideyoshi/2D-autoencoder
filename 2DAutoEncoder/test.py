@@ -67,7 +67,7 @@ def test(cfg):
     if cfg.clip_dim is None:
         predicted = model.predict(test_x, verbose=1, batch_size=1)
         predicted = np.squeeze(predicted)
-        make_intermediate_images(cfg.activation_path, model, test_x[[1]])
+        make_intermediate_images(cfg.activation_path, model, test_x[[0]])
     else:
         cell_size = cfg.clip_dim
         celled_test_X = [vox2cell(test_x[i], cell_size) for i in range(test_x.shape[0])]
@@ -97,7 +97,7 @@ def make_intermediate_images(path, model, voxel):
         print("%2d: %s" % (i, str(activation.shape)))
 
     activations = [(layer.name, activation) for layer, activation in zip(layers, activations)
-                   if isinstance(layer, BatchNormalization)
+                   # if isinstance(layer, BatchNormalization)
                    ]
 
     # 出力層ごとに特徴画像を並べてヒートマップ画像として出力
