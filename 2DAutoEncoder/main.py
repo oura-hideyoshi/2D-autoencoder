@@ -12,7 +12,7 @@ def main(cfg):
 
 
 class config:
-    mode = ["train", "test", "save_input"]
+    mode = ["", "test", "save_input"]
 
     # save path
     save_root_path = "result/test2"
