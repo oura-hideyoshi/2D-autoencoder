@@ -76,7 +76,7 @@ def test(cfg):
         predicted = [cell2vox(celled_generated_volumes[i], (4, 4, 4, 1)) for i in range(test_x.shape[0])]
         predicted = np.squeeze(predicted)
         make_intermediate_images(cfg.activation_path, model, celled_test_X[0][[5]])
-    for idx, img in enumerate(test_x):
+    for idx, img in enumerate(predicted):
         img = np.squeeze(img)
         imwrite(cfg.sample_path + "\\" + str(idx) + ".png", img)
 
