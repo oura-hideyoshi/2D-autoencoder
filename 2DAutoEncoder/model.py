@@ -1,7 +1,7 @@
 from keras.layers.advanced_activations import ReLU, LeakyReLU, PReLU, Softmax
 from keras.layers.normalization import BatchNormalization
 from keras.layers import Input, Dropout, Concatenate
-from keras.layers.convolutional import Conv2D, Conv2DTranspose
+from keras.layers.convolutional import Conv2D, Conv2DTranspose, UpSampling2D
 from keras.layers.pooling import MaxPooling2D
 from keras.models import Sequential, Model
 
@@ -68,8 +68,9 @@ class ModelGenerator:
                        kernel_initializer='he_normal', name='ConvE3-2')(model)
         # model = BatchNormalization(name='batchNormE3-2')(model)
 
-        model = Conv2DTranspose(ini_f * 2, k_size, strides=2, padding='same', activation='relu',
-                                kernel_initializer='he_normal', name='TConv3-2')(model)
+        model = UpSampling2D(size=(2, 2), name='up_sampling3-2')(model)
+        model = Conv2D(ini_f * 2, k_size, strides=1, padding='same', activation='relu', kernel_initializer='he_normal')(
+            model)
         model = Concatenate()([model, layer_stack.pop()])
         model = Conv2D(ini_f * 2, k_size, strides=1, padding='same', activation='relu',
                        kernel_initializer='he_normal', name='ConvD2-1')(model)
@@ -78,8 +79,8 @@ class ModelGenerator:
                        kernel_initializer='he_normal', name='ConvD2-2')(model)
         # model = BatchNormalization(name='batchNormD2-2')(model)
 
-        model = Conv2DTranspose(ini_f * 2, k_size, strides=2, padding='same', activation='relu',
-                                kernel_initializer='he_normal', name='TConv2-1')(model)
+        model = UpSampling2D(size=(2, 2), name='up_sampling2-1')(model)
+        model = Conv2D(ini_f, k_size, strides=1, padding='same', activation='relu', kernel_initializer='he_normal')(model)
         model = Concatenate()([model, layer_stack.pop()])
         model = Conv2D(ini_f, k_size, strides=1, padding='same', activation='relu', kernel_initializer='he_normal',
                        name='ConvD1-1')(model)

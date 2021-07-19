@@ -3,6 +3,9 @@
 ## 注意点
 - cell機能は未実装
 - アクティベーション確認機能は未実装
+
+## 実行環境
+[env_inf.yml](./env_inf.yml)　参照
 ## 仕様
 大抵のconfigはmain.py内のconfigで変更可能
 ### モードの選択
