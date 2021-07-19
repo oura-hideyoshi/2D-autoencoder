@@ -15,7 +15,7 @@ class config:
     mode = ["train", "test", "save_input"]
 
     # save path
-    save_root_path = "result/test3"
+    save_root_path = "result/test4"
     checkpoints_path = join(save_root_path, 'checkpoints')
     sample_path = join(save_root_path, "sample")
     activation_path = join(save_root_path, "activation")
@@ -32,7 +32,7 @@ class config:
     # for train parameter
     im_dim = (256, 256, 1)  # 入力データサイズ
     epochs = 500
-    batch_size = 100
+    batch_size = 80
     Adam_lr = 1e-4
     Adam_beta = 0.9
     # clip_dim = (32, 32, 1)  # 入力データからクリップするサイズ = モデルの入力サイズ
