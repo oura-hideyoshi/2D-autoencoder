@@ -46,7 +46,7 @@ test_x_path = '../dataset2D/ReconData5set/256x256pix/test/image'
 test_y_path = '../dataset2D/ReconData5set/256x256pix/test/label'
 ```
 |パス|内容|
-|---|---|
+|:---:|---|
 |train_x_path|トレーニングXデータ|
 |train_y_path|トレーニングYデータ|
 |test_x_path|テストXデータ|
@@ -67,7 +67,7 @@ train_weight_path = None
 validation_split = 0.1
 ```
 |パラメータ名|内容|
-|---|---|
+|:---:|---|
 |im_dim|入力データサイズ. グレースケールは1ch扱い|
 |apochs|エポック数|
 |batch_size|バッチサイズ|
@@ -84,5 +84,5 @@ validation_split = 0.1
 test_weight_path = join(save_root_path, "weight.h5")
 ```
 |変数|内容|
-|---|---|
+|:---:|---|
 |test_weight_path|テストモードの際に用いる重みファイル|
