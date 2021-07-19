@@ -41,7 +41,7 @@ class DataLoader:
         * load images as 'GRAY SCALE'
         """
         data_set = []
-        for file in Path(self.path).glob("*.tiff"):
+        for file in Path(self.path).glob("*"):
             # print('Loading image... ' + str(file))
             img = imread(str(file), IMREAD_GRAYSCALE)
             img = expand_dims(img, axis=2)
@@ -58,6 +58,7 @@ class DataLoader:
 
 
 if __name__ == "__main__":
-    dataloader = DataLoader("../dataset2D/ReconData5set/256x256pix/train/image", (256,256,1))
+    dataloader = DataLoader("../dataset2D/ReconData5set/256x256pix/train/image", (256, 256, 1))
     data = dataloader.load_data()
+    print(len(data))
     pass
