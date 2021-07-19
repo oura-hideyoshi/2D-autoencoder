@@ -58,7 +58,7 @@ def train(cfg):
         raise
     optimizer = Adam(lr=cfg.Adam_lr, beta_1=cfg.Adam_beta)
     metrics = ['accuracy', 'mse', ssim_loss, LWE]
-    model.compile(loss="mse", optimizer=optimizer, metrics=metrics)
+    model.compile(loss=imbalanced_loss, optimizer=optimizer, metrics=metrics)
     print("<train> Compiling model ... Complete !")
 
     # -------- load & create dataset --------

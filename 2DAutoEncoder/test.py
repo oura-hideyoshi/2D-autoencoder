@@ -78,6 +78,7 @@ def test(cfg):
         make_intermediate_images(cfg.activation_path, model, celled_test_X[0][[5]])
     for idx, img in enumerate(predicted):
         img = np.squeeze(img)
+        img = np.clip(img*255, 0, 255).astype(np.uint8)
         imwrite(cfg.sample_path + "\\" + str(idx) + ".png", img)
 
 
