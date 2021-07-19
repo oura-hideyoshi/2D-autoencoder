@@ -1,6 +1,8 @@
 import warnings
 
+import numpy as np
 from scipy.io import savemat
+from cv2 import imwrite
 from model import ModelGenerator
 from keras.utils import plot_model
 from DataLoader import DataLoader
@@ -32,7 +34,7 @@ def test(cfg):
         os.makedirs(cfg.save_root_path + "/logs/train/plugins/profile")
 
     # -------- build model --------
-    model = ModelGenerator().build_UNet_3L(im_dim=cfg.im_dim, clip_dim=cfg.clip_dim, ini_f=4, k_size=[2, 2, 4])
+    model = ModelGenerator().build_UNet_3L(im_dim=cfg.im_dim)
     print('<test> Generating model ...')
     model.summary()
     plot_model(model, to_file=cfg.save_root_path + "/model.png")
@@ -49,13 +51,11 @@ def test(cfg):
     data_loader_x = DataLoader(cfg.test_x_path, cfg.im_dim)
     test_x = np.array(data_loader_x.load_data()).astype(np.float32)
     test_x = rescale.rescale(test_x)
-    test_x = np.expand_dims(test_x, axis=4)
     print("train X shape :", test_x.shape)
     if cfg.test_y_path is not None:
         data_loader_y = DataLoader(cfg.test_y_path, cfg.im_dim)
         test_y = np.array(data_loader_y.load_data()).astype(np.float32)
         test_y = rescale.rescale(test_y)
-        test_y = np.expand_dims(test_y, axis=4)
         print("train Y shape :", test_y.shape)
     print("<test> Loading dataset ... Complete !")
 
@@ -76,10 +76,9 @@ def test(cfg):
         predicted = [cell2vox(celled_generated_volumes[i], (4, 4, 4, 1)) for i in range(test_x.shape[0])]
         predicted = np.squeeze(predicted)
         make_intermediate_images(cfg.activation_path, model, celled_test_X[0][[5]])
-    if not os.path.isdir(cfg.sample_path):
-        os.makedirs(cfg.sample_path)
-    for i in range(len(test_x)):
-        savemat(cfg.sample_path + '/test_' + str(i) + '.mat', {"voxel": predicted[i]})
+    for idx, img in enumerate(test_x):
+        img = np.squeeze(img)
+        imwrite(cfg.sample_path + "\\" + str(idx) + ".png", img)
 
 
 def make_intermediate_images(path, model, voxel):
